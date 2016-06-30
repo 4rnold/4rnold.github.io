@@ -281,6 +281,138 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/30/JavaWeb开发(1)——Servlet&JSP/" itemprop="url">
+                  JavaWeb开发(1)——Servlet&JSP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-30T09:21:46+08:00" content="2016-06-30">
+              2016-06-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/30/JavaWeb开发(1)——Servlet&JSP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/30/JavaWeb开发(1)——Servlet&JSP/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>问题：针对新建的web工程，需要手动将编译好的类复制到<code>WEB-INF/classes</code>目录下。麻烦</strong></p>
+<blockquote>
+<p>Eclipse中Java Build Path &gt; Source 设置Default output folder 到 WEB-INFO/classes目录</p>
+</blockquote>
+<p><strong>问题：tomcat webapp目录如何映射到工程目录？</strong></p>
+<blockquote>
+<p>配置Tomcat <Context>元素，不要直接在server.xml中配置<Context>元素，<br>    因为tomcat启动后将不再读取server.xml，因此无法在Tomcat启动的状态下 发布web应用。</p>
+<p>通过创建独立的xml文件的方式来配置<Context>，Tomcat 以Xml文件名作为Web应用的上下文路径。<br>    忽略<Context>中 path 属性。</p>
+<p>在apache/conf/ 目录下建立catalina/localhost目录，该目录下建立<code>helloworld.xml</code>文件。其中helloworld为访问路径<a href="http://localhost:8080/`helloworld`/xxxx">http://localhost:8080/`helloworld`/xxxx</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/test2"</span> <span class="attr">docBase</span>=<span class="string">""</span> <span class="attr">reloadable</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中path 为浏览器访问目录(无用)，docBase为WebApp所在目录（WebContent目录）。</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/30/JavaWeb开发(1)——Servlet&JSP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/11/hello-world/" itemprop="url">
                   Hello World
                 </a>
@@ -410,13 +542,27 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
           
 
         </nav>

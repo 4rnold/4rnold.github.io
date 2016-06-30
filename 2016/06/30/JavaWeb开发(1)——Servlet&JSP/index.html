@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="servlet,jsp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言问题：针对新建的web工程，需要手动将编译好的类复制到WEB-INF/classes目录下。麻烦
+
+Eclipse中Java Build Path &amp;gt; Source 设置Default output folder 到 WEB-INFO/classes目录
+
+问题：tomcat webapp目录如何映射到工程目录？
+
+配置Tomcat 元素，不要直接在server.xml中配置元素，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb开发(1)——Servlet&JSP">
+<meta property="og:url" content="http://4rnold.github.io/2016/06/30/JavaWeb开发(1)——Servlet&JSP/index.html">
+<meta property="og:site_name" content="4rnold notebook">
+<meta property="og:description" content="前言问题：针对新建的web工程，需要手动将编译好的类复制到WEB-INF/classes目录下。麻烦
+
+Eclipse中Java Build Path &amp;gt; Source 设置Default output folder 到 WEB-INFO/classes目录
+
+问题：tomcat webapp目录如何映射到工程目录？
+
+配置Tomcat 元素，不要直接在server.xml中配置元素，">
+<meta property="og:updated_time" content="2016-06-30T01:46:23.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb开发(1)——Servlet&JSP">
+<meta name="twitter:description" content="前言问题：针对新建的web工程，需要手动将编译好的类复制到WEB-INF/classes目录下。麻烦
+
+Eclipse中Java Build Path &amp;gt; Source 设置Default output folder 到 WEB-INFO/classes目录
+
+问题：tomcat webapp目录如何映射到工程目录？
+
+配置Tomcat 元素，不要直接在server.xml中配置元素，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://4rnold.github.io/2016/06/30/JavaWeb开发(1)——Servlet&JSP/"/>
+
+  <title> JavaWeb开发(1)——Servlet&JSP | 4rnold notebook </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?2011334bef77284f310680d94b4ee8fd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">4rnold notebook</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaWeb开发(1)——Servlet&JSP
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-30T09:21:46+08:00" content="2016-06-30">
+              2016-06-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/30/JavaWeb开发(1)——Servlet&JSP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/30/JavaWeb开发(1)——Servlet&JSP/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>问题：针对新建的web工程，需要手动将编译好的类复制到<code>WEB-INF/classes</code>目录下。麻烦</strong></p>
+<blockquote>
+<p>Eclipse中Java Build Path &gt; Source 设置Default output folder 到 WEB-INFO/classes目录</p>
+</blockquote>
+<p><strong>问题：tomcat webapp目录如何映射到工程目录？</strong></p>
+<blockquote>
+<p>配置Tomcat <context>元素，不要直接在server.xml中配置<context>元素，<br>    因为tomcat启动后将不再读取server.xml，因此无法在Tomcat启动的状态下 发布web应用。</context></context></p>
+<p>通过创建独立的xml文件的方式来配置<context>，Tomcat 以Xml文件名作为Web应用的上下文路径。<br>    忽略<context>中 path 属性。</context></context></p>
+<p>在apache/conf/ 目录下建立catalina/localhost目录，该目录下建立<code>helloworld.xml</code>文件。其中helloworld为访问路径<a href="http://localhost:8080/`helloworld`/xxxx" target="_blank" rel="external">http://localhost:8080/`helloworld`/xxxx</a><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="tag">&lt;<span class="name">Context</span> <span class="attr">path</span>=<span class="string">"/test2"</span> <span class="attr">docBase</span>=<span class="string">""</span> <span class="attr">reloadable</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>其中path 为浏览器访问目录(无用)，docBase为WebApp所在目录（WebContent目录）。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="servlet"><a href="#servlet" class="headerlink" title="servlet"></a>servlet</h1><h2 id="servlet-配置"><a href="#servlet-配置" class="headerlink" title="servlet 配置"></a>servlet 配置</h2><p><strong>注意：</strong><servlet-mapping> 中的 <url-pattern> 如果带<em>的话只能是 `/</em><code>或 *加扩展名</code><em>.xxx` 其他带 </em>的均不合法</url-pattern></servlet-mapping></p>
+<h2 id="servlet-生命周期"><a href="#servlet-生命周期" class="headerlink" title="servlet 生命周期"></a>servlet 生命周期</h2><blockquote>
+<p>构造方法 -&gt; init方法 -&gt; service方法 -&gt; destory方法</p>
+</blockquote>
+<h2 id="ServletConfig"><a href="#ServletConfig" class="headerlink" title="ServletConfig"></a>ServletConfig</h2><p>init 方法参数</p>
+<p>在<servlet>节点中配置<init-param>,可配置多组<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>value<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br></pre></td></tr></table></figure></init-param></servlet></p>
+<p>通过servletConfig中的方法可以获取到其中的值。</p>
+<h2 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext"></a>ServletContext</h2><p>可通过ServletConfig.getServletContext 获取</p>
+<p>该对象代表当前web应用，可以取到该应用的各方面信息</p>
+<h3 id="1-获取web-xml中web应用配置参数"><a href="#1-获取web-xml中web应用配置参数" class="headerlink" title="1.获取web.xml中web应用配置参数"></a>1.获取web.xml中web应用配置参数<context-param></context-param></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>value<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相对于<init-param>，<context-param>可看作的全局参数。</context-param></init-param></p>
+<h3 id="2-getRealPath-String-path"><a href="#2-getRealPath-String-path" class="headerlink" title="2.getRealPath(String path)"></a>2.getRealPath(String path)</h3><p>获取发布在服务器上的绝对路径</p>
+<p>可用于查找eclipse在本地真正发布项目的位置</p>
+<h3 id="3-getContextPath"><a href="#3-getContextPath" class="headerlink" title="3.getContextPath()"></a>3.getContextPath()</h3><p>获取当前web 应用名称</p>
+<h3 id="4-getResourceAsStream-String-path"><a href="#4-getResourceAsStream-String-path" class="headerlink" title="4.getResourceAsStream(String path)"></a>4.getResourceAsStream(String path)</h3><p>获取某一文件对应的输入流</p>
+<h2 id="ServletRequest-amp-ServletResponse"><a href="#ServletRequest-amp-ServletResponse" class="headerlink" title="ServletRequest &amp; ServletResponse"></a>ServletRequest &amp; ServletResponse</h2><p>service方法参数</p>
+<p>这是两个接口，不同的servlet容器具体实现，传入service方法。</p>
+<p><code>HttpServletRequest</code> 是 <code>ServletRequest</code> 子接口，封装http相关信息</p>
+<h2 id="GenericServlet"><a href="#GenericServlet" class="headerlink" title="GenericServlet"></a>GenericServlet</h2><p>实现了<code>Servlet</code>接口。为了让子类不重写所有的servlet中的方法。</p>
+<p>同时实现了<code>ServletConfig</code>接口，所以可以在service方法中直接方便使用 ServletConfig 对象的方法。 </p>
+<blockquote>
+<p>TIPS :IDEA 不能自动下载servlet-api源码（建立的Web Application 工程），显示从maven上没有搜索到。需要手工从<a href="http://tomcat.apache.org/index.html" target="_blank" rel="external">http://tomcat.apache.org/index.html</a> 下载源码后加载。</p>
+</blockquote>
+<h2 id="HttpServlet"><a href="#HttpServlet" class="headerlink" title="HttpServlet"></a>HttpServlet</h2><p>HttpServlet 继承 GenericServlet，重载service方法，将ServletRequest 和 ServletResponse 转为 HttpServletRequest 和 HttpServletResponse。<br>并根据请求分出 doGet和 doPost方法。</p>
+<h1 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h1><h2 id="JSP-隐含对象"><a href="#JSP-隐含对象" class="headerlink" title="JSP 隐含对象"></a>JSP 隐含对象</h2><ul>
+<li>request：HttpServletRequest</li>
+<li><del>response</del>：HttpServletResponse（在jsp页面基本不用）</li>
+<li>pageContext：页面上下文</li>
+<li>session: HttpSession</li>
+<li>application: servletContext，当前web应用。</li>
+<li><del>config</del>：对应servlet中的servletConfig 可以获取配置参数，那么问题来了..</li>
+</ul>
+<p><strong>问题： jsp页面的参数则呢配置？</strong></p>
+<blockquote>
+<p>同普通servlet一样，只需要将原来<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.arnold.Test.MyFirstServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">&gt; 替换为</span><br><span class="line">&gt; <span class="tag">&lt;<span class="name">jsp-file</span>&gt;</span>/hello.jsp<span class="tag">&lt;/<span class="name">jsp-file</span>&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>因为jsp本质也是一个servlet类么..但这样就只能通过访问servletName来访问此jsp</p>
+</blockquote>
+<ul>
+<li>out: JspWriter, 调用out.println()可以直接打印</li>
+<li><del>page</del>: 为object对象 基本不用。</li>
+<li>exception: jsp页面声明&lt;%@ page isErrorPage=”true” %&gt;才可用</li>
+</ul>
+<h2 id="JSP-内置对象作用范围"><a href="#JSP-内置对象作用范围" class="headerlink" title="JSP 内置对象作用范围"></a>JSP 内置对象作用范围</h2><ul>
+<li>pageContext : 当前jsp页面</li>
+<li>request： 同一个请求</li>
+<li>session： 同一个回话</li>
+<li>application： 同一个应用</li>
+</ul>
+<h2 id="page指令"><a href="#page指令" class="headerlink" title="page指令"></a>page指令</h2><ul>
+<li>session： 当前页面是否允许使用session</li>
+<li>ErrorPage：指定错误页面指向，然后错误页面要使用isErrorPage=true,使用exception对象</li>
+</ul>
+<blockquote>
+<p>TIPS: errorPage.jsp 一般不能直接方法，所以放到WEB-INF中，通过forward转发可以访问。</p>
+<p>TIPS: 通常在web.xml中配置错误页面信息<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="tag">&lt;<span class="name">error-page</span>&gt;</span></span><br><span class="line">&gt;     <span class="tag">&lt;<span class="name">error-code</span>&gt;</span>500<span class="tag">&lt;/<span class="name">error-code</span>&gt;</span><span class="comment">&lt;!--可根据错误代码或异常类型判断--&gt;</span></span><br><span class="line">&gt;     <span class="tag">&lt;<span class="name">location</span>&gt;</span>/WEB-INFO/error.jsp<span class="tag">&lt;/<span class="name">location</span>&gt;</span></span><br><span class="line">&gt; <span class="tag">&lt;/<span class="name">error-page</span>&gt;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ul>
+<li>contentType：实际调用的response.setContentType</li>
+<li>pageEncoding: 当前jsp页面的字符编码，通常和contentType的charset一致</li>
+</ul>
+<blockquote>
+<p>TIPS: <a href="http://my.oschina.net/chape/blog/138828" target="_blank" rel="external">contentType和pageEncoding的区别</a></p>
+</blockquote>
+<h2 id="include指令静态引入"><a href="#include指令静态引入" class="headerlink" title="include指令静态引入"></a>include指令静态引入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ include file=&quot;url&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<p>静态包含，最后只生成<code>一个class</code>。</p>
+<h2 id="动态引入"><a href="#动态引入" class="headerlink" title="动态引入"></a><jsp:include>动态引入</jsp:include></h2><p>生成两个class</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><jsp:forward></jsp:forward></h2><p>相当于request.getRequestDispathcer(“b.jsp”).forward(request,response);</p>
+<h1 id="请求转发"><a href="#请求转发" class="headerlink" title="请求转发"></a>请求转发</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//forward 一次请求</span></span><br><span class="line">String path = <span class="string">"testPath"</span>;</span><br><span class="line">RequestDispatcher requestDispatcher = request.getRequestDispatcher(<span class="string">"/"</span> + path);</span><br><span class="line">requestDispatcher.forward(request,response);</span><br><span class="line"></span><br><span class="line"><span class="comment">//redirect 两次请求(网址会变)</span></span><br><span class="line">response.sendRedirect(<span class="string">"path"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>forward是发送给web容器，然后web容器转发</strong>，Request对象不变。</li>
+<li>redirect是浏览器302转发。</li>
+</ul>
+<p>forward “/” 代表当前web应用的根目录<br>redirect “/” 代表当前web站点的根目录</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/servlet/" rel="tag">#servlet</a>
+          
+            <a href="/tags/jsp/" rel="tag">#jsp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/11/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/30/JavaWeb开发(1)——Servlet&JSP/"
+           data-title="JavaWeb开发(1)——Servlet&JSP" data-url="http://4rnold.github.io/2016/06/30/JavaWeb开发(1)——Servlet&JSP/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="4rnold" />
+          <p class="site-author-name" itemprop="name">4rnold</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#servlet"><span class="nav-number">2.</span> <span class="nav-text">servlet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet-配置"><span class="nav-number">2.1.</span> <span class="nav-text">servlet 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet-生命周期"><span class="nav-number">2.2.</span> <span class="nav-text">servlet 生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServletConfig"><span class="nav-number">2.3.</span> <span class="nav-text">ServletConfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServletContext"><span class="nav-number">2.4.</span> <span class="nav-text">ServletContext</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-获取web-xml中web应用配置参数"><span class="nav-number">2.4.1.</span> <span class="nav-text">1.获取web.xml中web应用配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-getRealPath-String-path"><span class="nav-number">2.4.2.</span> <span class="nav-text">2.getRealPath(String path)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-getContextPath"><span class="nav-number">2.4.3.</span> <span class="nav-text">3.getContextPath()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-getResourceAsStream-String-path"><span class="nav-number">2.4.4.</span> <span class="nav-text">4.getResourceAsStream(String path)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ServletRequest-amp-ServletResponse"><span class="nav-number">2.5.</span> <span class="nav-text">ServletRequest & ServletResponse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GenericServlet"><span class="nav-number">2.6.</span> <span class="nav-text">GenericServlet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HttpServlet"><span class="nav-number">2.7.</span> <span class="nav-text">HttpServlet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSP"><span class="nav-number">3.</span> <span class="nav-text">JSP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP-隐含对象"><span class="nav-number">3.1.</span> <span class="nav-text">JSP 隐含对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP-内置对象作用范围"><span class="nav-number">3.2.</span> <span class="nav-text">JSP 内置对象作用范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page指令"><span class="nav-number">3.3.</span> <span class="nav-text">page指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#include指令静态引入"><span class="nav-number">3.4.</span> <span class="nav-text">include指令静态引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态引入"><span class="nav-number">3.5.</span> <span class="nav-text">动态引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.6.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#请求转发"><span class="nav-number">4.</span> <span class="nav-text">请求转发</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">4rnold</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"4rnold"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
