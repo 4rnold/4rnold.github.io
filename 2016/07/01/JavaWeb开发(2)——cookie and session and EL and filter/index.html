@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="servlet,jsp," />
 
 
 
@@ -84,15 +84,30 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="4rnold's notebook">
-<meta property="og:url" content="http://4rnold.github.io/tags/servlet/index.html">
+<meta name="description" content="私人笔记仅作个人记录用
+
+Cookie当服务端传cookie到客户端（http头中的Set-Cookie字段），那么客户端后面的请求将携带cookie信息。所以….==之前看到的静态文件推荐使用独立域名，可以避免访问静态文件也携带cookie，浪费网络带宽。==
+Cookie的作用范围cookie.setPath(request.getContextPath());
+Session只有调用 req">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb开发(2)——cookie&session&EL&filter">
+<meta property="og:url" content="http://4rnold.github.io/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/index.html">
 <meta property="og:site_name" content="4rnold's notebook">
-<meta property="og:description">
+<meta property="og:description" content="私人笔记仅作个人记录用
+
+Cookie当服务端传cookie到客户端（http头中的Set-Cookie字段），那么客户端后面的请求将携带cookie信息。所以….==之前看到的静态文件推荐使用独立域名，可以避免访问静态文件也携带cookie，浪费网络带宽。==
+Cookie的作用范围cookie.setPath(request.getContextPath());
+Session只有调用 req">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-6-30/93659693.jpg">
+<meta property="og:updated_time" content="2016-07-01T03:14:45.010Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4rnold's notebook">
-<meta name="twitter:description">
+<meta name="twitter:title" content="JavaWeb开发(2)——cookie&session&EL&filter">
+<meta name="twitter:description" content="私人笔记仅作个人记录用
+
+Cookie当服务端传cookie到客户端（http头中的Set-Cookie字段），那么客户端后面的请求将携带cookie信息。所以….==之前看到的静态文件推荐使用独立域名，可以避免访问静态文件也携带cookie，浪费网络带宽。==
+Cookie的作用范围cookie.setPath(request.getContextPath());
+Session只有调用 req">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/16-6-30/93659693.jpg">
 
 
 
@@ -113,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="http://4rnold.github.io/tags/servlet/"/>
+  <link rel="canonical" href="http://4rnold.github.io/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/"/>
 
-  <title> 标签: servlet | 4rnold's notebook </title>
+  <title> JavaWeb开发(2)——cookie&session&EL&filter | 4rnold's notebook </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +161,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,74 +272,207 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        servlet
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(2)——cookie&session&EL&filter</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T10:58:33+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/30/JavaWeb开发(1)——Servlet and JSP/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(1)——Servlet&JSP</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-30T09:21:46+08:00"
-              content="2016-06-30" >
-          06-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaWeb开发(2)——cookie&session&EL&filter
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-01T10:58:33+08:00" content="2016-07-01">
+              2016-07-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>私人笔记仅作个人记录用</em></p>
+<hr>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>当服务端传cookie到客户端（http头中的Set-Cookie字段），那么客户端后面的请求将携带cookie信息。<br>所以….==之前看到的静态文件推荐使用独立域名，可以避免访问静态文件也携带cookie，浪费网络带宽。==</p>
+<h2 id="Cookie的作用范围"><a href="#Cookie的作用范围" class="headerlink" title="Cookie的作用范围"></a>Cookie的作用范围</h2><p>cookie.setPath(request.getContextPath());</p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>只有调用 request.getSession() 或 request.getSession(true) 才创建session对象。</p>
+<h2 id="session-的生命周期"><a href="#session-的生命周期" class="headerlink" title="session 的生命周期"></a>session 的生命周期</h2><p>在 tomcat中的web.xml可以设置 session最大时间</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>30<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="session-url-重写"><a href="#session-url-重写" class="headerlink" title="session url 重写"></a>session url 重写</h2><p>respose.encodeURL(“hello.jsp”) 会对将JSESSIONID附在url后面。</p>
+<hr>
+<h1 id="jsp-amp-servlet-路径问题"><a href="#jsp-amp-servlet-路径问题" class="headerlink" title="jsp&amp;servlet 路径问题"></a>jsp&amp;servlet 路径问题</h1><p>相对路径 servlet目录 和jsp 不一样，导致页面404，所以推荐使用绝对路径。</p>
+<p>绝对路径涉及到 “/” 的使用：</p>
+<p><strong>代表web应用路径的情况： (交给servlet容器处理)</strong></p>
+<ul>
+<li>请求转发： request.getRequestDispatcher(“/path/b.jsp”).forward(req,res);</li>
+<li>web.xml 中映射Servlet 访问路径<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/abc<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>代表站点根路径的情况： (交给浏览器处理)</strong></p>
+<ul>
+<li>超链接 <a herf="/webapp/a.jsp"></a></li>
+</ul>
+<p>通常使用request.getContextPath() 组合为绝对路径。</p>
+<h1 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h1><ul>
+<li><p>隐藏对象 </p>
+<ul>
+<li>pageScope</li>
+<li>requestScope</li>
+<li>sessionScope</li>
+<li>applicationScope</li>
+</ul>
+</li>
+<li><p>请求参数</p>
+<ul>
+<li>param</li>
+<li>paramValues</li>
+</ul>
+</li>
+<li><p>其他隐含对象</p>
+<ul>
+<li>cookie</li>
+<li>header 请求头</li>
+<li>headerValues</li>
+<li>initParam</li>
+<li>pageContext</li>
+</ul>
+</li>
+</ul>
+<p>==pageContext.session 和 sessionScope 区别??==</p>
+<h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p>过滤器中<code>&lt;dispathcer&gt;</code>节点指定过滤器所拦截的资源被<code>servlet容器</code>的调用方式。可以指定多个。</p>
+<p>可以是REQUEST,INCLUDE,FORWARD,ERROR之一，默认REQUEST。</p>
+<hr>
+<blockquote>
+<p>TIPS: 各种URL<br><img src="http://o8n1hrt12.bkt.clouddn.com/16-6-30/93659693.jpg" alt=""><br>request.getContextPath() 得到当前应用的路径</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/servlet/" rel="tag">#servlet</a>
+          
+            <a href="/tags/jsp/" rel="tag">#jsp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/30/JavaWeb开发(1)——Servlet and JSP/" rel="next" title="JavaWeb开发(1)——Servlet&JSP">
+                <i class="fa fa-chevron-left"></i> JavaWeb开发(1)——Servlet&JSP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/01/装饰器模式 和 代理模式 区别/" rel="prev" title="装饰器模式 和 代理模式 区别">
+                装饰器模式 和 代理模式 区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -332,6 +480,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/"
+           data-title="JavaWeb开发(2)——cookie&session&EL&filter" data-url="http://4rnold.github.io/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -351,8 +507,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -402,6 +567,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie的作用范围"><span class="nav-number">1.1.</span> <span class="nav-text">Cookie的作用范围</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text">Session</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#session-的生命周期"><span class="nav-number">2.1.</span> <span class="nav-text">session 的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session-url-重写"><span class="nav-number">2.2.</span> <span class="nav-text">session url 重写</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jsp-amp-servlet-路径问题"><span class="nav-number">3.</span> <span class="nav-text">jsp&servlet 路径问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EL-表达式"><span class="nav-number">4.</span> <span class="nav-text">EL 表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤器"><span class="nav-number">5.</span> <span class="nav-text">过滤器</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -498,6 +674,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

@@ -4,8 +4,99 @@
   
     
     <entry>
+      <title><![CDATA[hexo博客文件名带&符号导致localsearch失效问题]]></title>
+      <url>http://4rnold.github.io/2016/07/01/hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6%E5%90%8D%E5%B8%A6%E7%AC%A6%E5%8F%B7%E5%AF%BC%E8%87%B4localsearch%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
+      <content type="html"><![CDATA[<p>之前有一篇名为“JavaWeb开发(1)——Servlet&amp;JSP”的文章，在hexo中对应的文件名为“JavaWeb开发(1)——Servlet&amp;JSP.md”,随后发现hexo localsearch 不能使用。查看配置无问题。</p>
+<p>访问<a href="http://localhost:4000/search.xml" target="_blank" rel="external">http://localhost:4000/search.xml</a> 报如下错误<br><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-1/16203251.jpg" alt=""></p>
+<p>逐个排查后发现md文件名不能带 <code>&amp;</code> 符号。</p>
+<p>以后md文件还是避免使用符号为好。</p>
+<p>另外，将文件名中&amp;转义为&amp;后搜索功能可用。但是文章链接无法打开。因为hexo将md文件名作为当前文章的url，&amp;转移后为&amp;，&amp;是url关键字。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[装饰器模式 和 代理模式 区别]]></title>
+      <url>http://4rnold.github.io/2016/07/01/%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F%20%E5%92%8C%20%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%20%E5%8C%BA%E5%88%AB/</url>
+      <content type="html"><![CDATA[<ul>
+<li>装饰器是对现有对象的一种装饰</li>
+<li>代理模式是直接生成一个代理对象。</li>
+</ul>
+<ul>
+<li>装饰器是通过set方法传入对象，</li>
+<li>代理模式是直接在初始化时new 一个对象。</li>
+</ul>
+<ul>
+<li>装饰者建立后，修饰完a 还可以修饰b对象。</li>
+<li>代理模式是创建后对象就确定了。就是建立一个代理A类的对象。</li>
+</ul>
+<p>貌似挺无聊的..都是包装了一层。</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JavaWeb开发(2)——cookie&session&EL&filter]]></title>
+      <url>http://4rnold.github.io/2016/07/01/JavaWeb%E5%BC%80%E5%8F%91(2)%E2%80%94%E2%80%94cookie%20and%20session%20and%20EL%20and%20filter/</url>
+      <content type="html"><![CDATA[<p><em>私人笔记仅作个人记录用</em></p>
+<hr>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>当服务端传cookie到客户端（http头中的Set-Cookie字段），那么客户端后面的请求将携带cookie信息。<br>所以….==之前看到的静态文件推荐使用独立域名，可以避免访问静态文件也携带cookie，浪费网络带宽。==</p>
+<h2 id="Cookie的作用范围"><a href="#Cookie的作用范围" class="headerlink" title="Cookie的作用范围"></a>Cookie的作用范围</h2><p>cookie.setPath(request.getContextPath());</p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><p>只有调用 request.getSession() 或 request.getSession(true) 才创建session对象。</p>
+<h2 id="session-的生命周期"><a href="#session-的生命周期" class="headerlink" title="session 的生命周期"></a>session 的生命周期</h2><p>在 tomcat中的web.xml可以设置 session最大时间</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>30<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="session-url-重写"><a href="#session-url-重写" class="headerlink" title="session url 重写"></a>session url 重写</h2><p>respose.encodeURL(“hello.jsp”) 会对将JSESSIONID附在url后面。</p>
+<hr>
+<h1 id="jsp-amp-servlet-路径问题"><a href="#jsp-amp-servlet-路径问题" class="headerlink" title="jsp&amp;servlet 路径问题"></a>jsp&amp;servlet 路径问题</h1><p>相对路径 servlet目录 和jsp 不一样，导致页面404，所以推荐使用绝对路径。</p>
+<p>绝对路径涉及到 “/” 的使用：</p>
+<p><strong>代表web应用路径的情况： (交给servlet容器处理)</strong></p>
+<ul>
+<li>请求转发： request.getRequestDispatcher(“/path/b.jsp”).forward(req,res);</li>
+<li>web.xml 中映射Servlet 访问路径<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>name<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/abc<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>代表站点根路径的情况： (交给浏览器处理)</strong></p>
+<ul>
+<li>超链接 <a herf="/webapp/a.jsp"></a></li>
+</ul>
+<p>通常使用request.getContextPath() 组合为绝对路径。</p>
+<h1 id="EL-表达式"><a href="#EL-表达式" class="headerlink" title="EL 表达式"></a>EL 表达式</h1><ul>
+<li><p>隐藏对象 </p>
+<ul>
+<li>pageScope</li>
+<li>requestScope</li>
+<li>sessionScope</li>
+<li>applicationScope</li>
+</ul>
+</li>
+<li><p>请求参数</p>
+<ul>
+<li>param</li>
+<li>paramValues</li>
+</ul>
+</li>
+<li><p>其他隐含对象</p>
+<ul>
+<li>cookie</li>
+<li>header 请求头</li>
+<li>headerValues</li>
+<li>initParam</li>
+<li>pageContext</li>
+</ul>
+</li>
+</ul>
+<p>==pageContext.session 和 sessionScope 区别??==</p>
+<h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p>过滤器中<code>&lt;dispathcer&gt;</code>节点指定过滤器所拦截的资源被<code>servlet容器</code>的调用方式。可以指定多个。</p>
+<p>可以是REQUEST,INCLUDE,FORWARD,ERROR之一，默认REQUEST。</p>
+<hr>
+<blockquote>
+<p>TIPS: 各种URL<br><img src="http://o8n1hrt12.bkt.clouddn.com/16-6-30/93659693.jpg" alt=""><br>request.getContextPath() 得到当前应用的路径</p>
+</blockquote>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaWeb开发(1)——Servlet&JSP]]></title>
-      <url>http://4rnold.github.io/2016/06/30/JavaWeb%E5%BC%80%E5%8F%91(1)%E2%80%94%E2%80%94Servlet&JSP/</url>
+      <url>http://4rnold.github.io/2016/06/30/JavaWeb%E5%BC%80%E5%8F%91(1)%E2%80%94%E2%80%94Servlet%20and%20JSP/</url>
       <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>问题：针对新建的web工程，需要手动将编译好的类复制到<code>WEB-INF/classes</code>目录下。麻烦</strong></p>
 <blockquote>
 <p>Eclipse中Java Build Path &gt; Source 设置Default output folder 到 WEB-INFO/classes目录</p>
@@ -91,21 +182,6 @@
 <li>redirect是浏览器302转发。</li>
 </ul>
 <p>forward “/” 代表当前web应用的根目录<br>redirect “/” 代表当前web站点的根目录</p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>http://4rnold.github.io/2016/06/11/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     </entry>
     
