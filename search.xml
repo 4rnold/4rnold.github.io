@@ -10,7 +10,7 @@
 <p>访问<a href="http://localhost:4000/search.xml" target="_blank" rel="external">http://localhost:4000/search.xml</a> 报如下错误<br><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-1/16203251.jpg" alt=""></p>
 <p>逐个排查后发现md文件名不能带 <code>&amp;</code> 符号。</p>
 <p>以后md文件还是避免使用符号为好。</p>
-<p>另外，将文件名中&amp;转义为&amp;后搜索功能可用。但是文章链接无法打开。因为hexo将md文件名作为当前文章的url，&amp;转移后为&amp;，&amp;是url关键字。</p>
+<p>另外，将文件名中&amp;转义为<code>&amp;amp;</code>后搜索功能可用。但是文章链接无法打开。因为hexo将md文件名作为当前文章的url，<code>&amp;amp;</code>转义后为&amp;，&amp;是url关键字。</p>
 ]]></content>
     </entry>
     
