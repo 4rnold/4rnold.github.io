@@ -4,6 +4,66 @@
   
     
     <entry>
+      <title><![CDATA[JVM的类加载机制]]></title>
+      <url>http://4rnold.github.io/2016/07/04/JVM%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</url>
+      <content type="html"><![CDATA[<h1 id="类的加载、链接和初始化"><a href="#类的加载、链接和初始化" class="headerlink" title="类的加载、链接和初始化"></a>类的加载、链接和初始化</h1><ul>
+<li><p>加载：查找并加载二进制数据</p>
+<blockquote>
+<p>.class文件中的二进制数据读入到内存。放在<code>运行时数据区的方法区</code> 内，然后再<code>堆</code> 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>连接<ul>
+<li>验证：类的正确性（确实是个java的类不是C++ 的）</li>
+<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（还没有赋值，先赋为默认值）</li>
+<li>解析：把类中<code>符号引用</code>转为<code>直接引用</code> （指针指向真正要执行方法的内存地址）</li>
+</ul>
+</li>
+<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。</li>
+</ul>
+<a id="more"></a>
+<p>在六种对类的第一次<code>主动使用</code>时才会去初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class Test&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> x = <span class="number">6</span>/<span class="number">2</span>;</span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">//访问Test.x不运行，</span></span><br><span class="line">    <span class="comment">//如果x = new Random().nextInt(10)则运行此方法。</span></span><br><span class="line">    <span class="comment">//如果x不是final 则运行此方法。</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ClassLoader.loadClass() 加载类不是对类的主动使用（仅仅加载不会调用初始化方法）</p>
+<blockquote>
+<p>TIPS : 加载匿名内部类可以使用诸如<code>“java.net.URLClassLoader$3$1”</code>表明URLClassLoader中第3个匿名内部类中的第一个匿名内部类</p>
+</blockquote>
+<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><ul>
+<li><p>java自带加载器</p>
+<ul>
+<li><p>根加载器（Bootstrap）所加载类的.getClassLoader()得到null</p>
+<p>根加载器实现依赖底层操作系统。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>扩展类加载器（Extension）</p>
+<p>​    从java.ext.dirs系统属性指定目录加载类库，或从JDK安装魔力jre/lib/ext目录加载</p>
+</li>
+<li><p>系统类加载器（System）</p>
+<p>从环境变量classpath或java.class.path指定的目录中加载</p>
+</li>
+</ul>
+<ul>
+<li>用户自定义加载器（classloader的子类）</li>
+</ul>
+<p>加载类的加载器是<code>定义类加载器</code>，其子类加载器是<code>初始类加载器</code></p>
+<p><strong>父加载器加载的类不能看见子加载器加载的类。</strong></p>
+<p>例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class clazz = loadder1.loadClass(<span class="string">"Sample.class"</span>);</span><br><span class="line">        Object object = clazz.newInstance();</span><br><span class="line">        Sample sample = (Sample)object;<span class="comment">//报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上例中Client由System加载，Sample类由自定义类加载器（Loader1）加载，所以main中无法访问sample。可以使用<code>反射</code>方法来突破这种限制。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class clazz = loadder1.loadClass(<span class="string">"Sample.class"</span>);</span><br><span class="line">        Object object = clazz.newInstance();</span><br><span class="line">        Field field = clazz.getField(<span class="string">"v1"</span>);<span class="comment">//反射</span></span><br><span class="line">        <span class="keyword">int</span> v1 = field.getInt(object);</span><br><span class="line">        System.out.println(<span class="string">"v1:"</span> + v1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类的卸载"><a href="#类的卸载" class="headerlink" title="类的卸载"></a>类的卸载</h2><p>当<code>自定义类加载器</code>加载的类的生命周期结束时，该类<code>方法区</code> 内的数据也会被<code>卸载</code>。</p>
+<p>而<code>系统类加载器</code>(三种) 加载的类始终不会被卸载。</p>
+<h2 id="引用变量与对象的引用关系"><a href="#引用变量与对象的引用关系" class="headerlink" title="引用变量与对象的引用关系"></a>引用变量与对象的引用关系</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-4/24473210.jpg" alt=""></p>
+<p>(图引自：<a href="http://www.cnblogs.com/mengdd/p/3594608.html" target="_blank" rel="external">http://www.cnblogs.com/mengdd/p/3594608.html</a>)</p>
+<p>卸载：Class对象被卸载，方法区类二进制数据被卸载（可以通过Class.hashCode()来判断）。（是否说明方法区内和Class对象是始终一一对应的？）</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[hexo博客文件名带&符号导致localsearch失效问题]]></title>
       <url>http://4rnold.github.io/2016/07/01/hexo%E5%8D%9A%E5%AE%A2%E6%96%87%E4%BB%B6%E5%90%8D%E5%B8%A6%E7%AC%A6%E5%8F%B7%E5%AF%BC%E8%87%B4localsearch%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/</url>
       <content type="html"><![CDATA[<p>之前有一篇名为“JavaWeb开发(1)——Servlet&amp;JSP”的文章，在hexo中对应的文件名为“JavaWeb开发(1)——Servlet&amp;JSP.md”,随后发现hexo localsearch 不能使用。查看配置无问题。</p>

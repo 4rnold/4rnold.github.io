@@ -281,6 +281,143 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/04/JVM的类加载机制/" itemprop="url">
+                  JVM的类加载机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-04T21:56:44+08:00" content="2016-07-04">
+              2016-07-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/04/JVM的类加载机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/04/JVM的类加载机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="类的加载、链接和初始化"><a href="#类的加载、链接和初始化" class="headerlink" title="类的加载、链接和初始化"></a>类的加载、链接和初始化</h1><ul>
+<li><p>加载：查找并加载二进制数据</p>
+<blockquote>
+<p>.class文件中的二进制数据读入到内存。放在<code>运行时数据区的方法区</code> 内，然后再<code>堆</code> 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>连接<ul>
+<li>验证：类的正确性（确实是个java的类不是C++ 的）</li>
+<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（还没有赋值，先赋为默认值）</li>
+<li>解析：把类中<code>符号引用</code>转为<code>直接引用</code> （指针指向真正要执行方法的内存地址）</li>
+</ul>
+</li>
+<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/04/JVM的类加载机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/01/hexo博客文件名带符号导致localsearch失效问题/" itemprop="url">
                   hexo博客文件名带&符号导致localsearch失效问题
                 </a>
@@ -817,7 +954,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -834,7 +971,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
