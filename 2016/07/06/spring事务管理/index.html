@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="spring,事务,隔离级别,事务传播," />
 
 
 
@@ -84,15 +84,18 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="4rnold's notebook">
-<meta property="og:url" content="http://4rnold.github.io/tags/servlet/index.html">
+<meta name="description" content="参考链接中介绍了物种配置方式，此处只记录最常用的全注解方式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring事务管理">
+<meta property="og:url" content="http://4rnold.github.io/2016/07/06/spring事务管理/index.html">
 <meta property="og:site_name" content="4rnold's notebook">
-<meta property="og:description">
+<meta property="og:description" content="参考链接中介绍了物种配置方式，此处只记录最常用的全注解方式">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-6/79284388.jpg">
+<meta property="og:updated_time" content="2016-07-06T11:11:18.443Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4rnold's notebook">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Spring事务管理">
+<meta name="twitter:description" content="参考链接中介绍了物种配置方式，此处只记录最常用的全注解方式">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-6/79284388.jpg">
 
 
 
@@ -113,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://4rnold.github.io/tags/servlet/"/>
+  <link rel="canonical" href="http://4rnold.github.io/2016/07/06/spring事务管理/"/>
 
-  <title> 标签: servlet | 4rnold's notebook </title>
+  <title> Spring事务管理 | 4rnold's notebook </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +149,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,74 +260,168 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        servlet
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(2)——cookie&session&EL&filter</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T10:58:33+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/30/JavaWeb开发(1)——Servlet and JSP/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(1)——Servlet&JSP</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-30T09:21:46+08:00"
-              content="2016-06-30" >
-          06-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring事务管理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T19:11:12+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/spring事务管理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/spring事务管理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-6/79284388.jpg" alt=""></p>
+<p>参考链接中介绍了物种配置方式，此处只记录最常用的<code>全注解方式</code></p>
+<a id="more"></a>
+<h2 id="事务配置"><a href="#事务配置" class="headerlink" title="事务配置"></a>事务配置</h2><p>一、配置事务管理器：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> </span><br><span class="line">      <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>二、启用事务注解</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>三、service上加@Transactional</p>
+<h2 id="事务的传播属性和事务的隔离级别"><a href="#事务的传播属性和事务的隔离级别" class="headerlink" title="事务的传播属性和事务的隔离级别"></a>事务的传播属性和事务的隔离级别</h2><p>参照参考链接…</p>
+<p>1： PROPAGATION_REQUIRED<br>加入当前正要执行的事务不在另外一个事务里，那么就起一个新的事务<br>比如说，ServiceB.methodB的事务级别定义为PROPAGATION_REQUIRED, 那么由于执行ServiceA.methodA的时候，<br>ServiceA.methodA已经起了事务，这时调用ServiceB.methodB，ServiceB.methodB看到自己已经运行在ServiceA.methodA<br>的事务内部，就不再起新的事务。而假如ServiceA.methodA运行的时候发现自己没有在事务中，他就会为自己分配一个事务。<br><strong>这样，在ServiceA.methodA或者在ServiceB.methodB内的任何地方出现异常，事务都会被回滚。即使ServiceB.methodB的事务已经被 提交，但是ServiceA.methodA在接下来fail要回滚，ServiceB.methodB也要回滚</strong></p>
+<p>为自己分配一个事务还涉及到methodA？？待测试..</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://blog.csdn.net/it_man/article/details/5074371" target="_blank" rel="external">Spring事务配置的五种方式和spring里面事务的传播属性和事务隔离级别</a></p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spring/" rel="tag">#spring</a>
+          
+            <a href="/tags/事务/" rel="tag">#事务</a>
+          
+            <a href="/tags/隔离级别/" rel="tag">#隔离级别</a>
+          
+            <a href="/tags/事务传播/" rel="tag">#事务传播</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/AspectAOP/" rel="next" title="AspectJ AOP">
+                <i class="fa fa-chevron-left"></i> AspectJ AOP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -332,6 +429,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/06/spring事务管理/"
+           data-title="Spring事务管理" data-url="http://4rnold.github.io/2016/07/06/spring事务管理/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -351,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -402,6 +516,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务配置"><span class="nav-number">1.</span> <span class="nav-text">事务配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的传播属性和事务的隔离级别"><span class="nav-number">2.</span> <span class="nav-text">事务的传播属性和事务的隔离级别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -498,6 +623,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

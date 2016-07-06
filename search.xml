@@ -4,6 +4,28 @@
   
     
     <entry>
+      <title><![CDATA[Spring事务管理]]></title>
+      <url>http://4rnold.github.io/2016/07/06/spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86/</url>
+      <content type="html"><![CDATA[<p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-6/79284388.jpg" alt=""></p>
+<p>参考链接中介绍了物种配置方式，此处只记录最常用的<code>全注解方式</code></p>
+<a id="more"></a>
+<h2 id="事务配置"><a href="#事务配置" class="headerlink" title="事务配置"></a>事务配置</h2><p>一、配置事务管理器：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> </span><br><span class="line">      <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>二、启用事务注解</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>三、service上加@Transactional</p>
+<h2 id="事务的传播属性和事务的隔离级别"><a href="#事务的传播属性和事务的隔离级别" class="headerlink" title="事务的传播属性和事务的隔离级别"></a>事务的传播属性和事务的隔离级别</h2><p>参照参考链接…</p>
+<p>1： PROPAGATION_REQUIRED<br>加入当前正要执行的事务不在另外一个事务里，那么就起一个新的事务<br>比如说，ServiceB.methodB的事务级别定义为PROPAGATION_REQUIRED, 那么由于执行ServiceA.methodA的时候，<br>ServiceA.methodA已经起了事务，这时调用ServiceB.methodB，ServiceB.methodB看到自己已经运行在ServiceA.methodA<br>的事务内部，就不再起新的事务。而假如ServiceA.methodA运行的时候发现自己没有在事务中，他就会为自己分配一个事务。<br><strong>这样，在ServiceA.methodA或者在ServiceB.methodB内的任何地方出现异常，事务都会被回滚。即使ServiceB.methodB的事务已经被 提交，但是ServiceA.methodA在接下来fail要回滚，ServiceB.methodB也要回滚</strong></p>
+<p>为自己分配一个事务还涉及到methodA？？待测试..</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://blog.csdn.net/it_man/article/details/5074371" target="_blank" rel="external">Spring事务配置的五种方式和spring里面事务的传播属性和事务隔离级别</a></p>
+<p>​</p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[AspectJ AOP]]></title>
       <url>http://4rnold.github.io/2016/07/06/AspectAOP/</url>
       <content type="html"><![CDATA[<p>连接点和切点的区别：连接点是数据库中的数据，切点是sql语句</p>
