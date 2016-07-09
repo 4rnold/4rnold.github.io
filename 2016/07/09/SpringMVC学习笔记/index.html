@@ -1,0 +1,882 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SpringMVC," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon_0701.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="springmvc helloworld一、DispathchServlet 配置12345678910111213&amp;lt;servlet&amp;gt;        &amp;lt;servlet-name&amp;gt;springMVC&amp;lt;/servlet-name&amp;gt;        &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.Dispatch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringMVC学习笔记">
+<meta property="og:url" content="http://4rnold.github.io/2016/07/09/SpringMVC学习笔记/index.html">
+<meta property="og:site_name" content="4rnold's notebook">
+<meta property="og:description" content="springmvc helloworld一、DispathchServlet 配置12345678910111213&amp;lt;servlet&amp;gt;        &amp;lt;servlet-name&amp;gt;springMVC&amp;lt;/servlet-name&amp;gt;        &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.Dispatch">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-7/19566832.jpg">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-7/35838270.jpg">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-8/97156614.jpg">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-8/5769044.jpg">
+<meta property="og:updated_time" content="2016-07-09T01:15:16.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringMVC学习笔记">
+<meta name="twitter:description" content="springmvc helloworld一、DispathchServlet 配置12345678910111213&amp;lt;servlet&amp;gt;        &amp;lt;servlet-name&amp;gt;springMVC&amp;lt;/servlet-name&amp;gt;        &amp;lt;servlet-class&amp;gt;org.springframework.web.servlet.Dispatch">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-7/19566832.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://4rnold.github.io/2016/07/09/SpringMVC学习笔记/"/>
+
+  <title> SpringMVC学习笔记 | 4rnold's notebook </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?2011334bef77284f310680d94b4ee8fd";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">4rnold's notebook</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SpringMVC学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-09T09:08:44+08:00" content="2016-07-09">
+              2016-07-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/09/SpringMVC学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/09/SpringMVC学习笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="springmvc-helloworld"><a href="#springmvc-helloworld" class="headerlink" title="springmvc helloworld"></a>springmvc helloworld</h2><h3 id="一、DispathchServlet-配置"><a href="#一、DispathchServlet-配置" class="headerlink" title="一、DispathchServlet 配置"></a>一、DispathchServlet 配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">init-param</span>&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath*:/springMVC.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span><span class="comment">&lt;!-- 如果不配置则默认使用/WEB-INF/xxxx-servlet.xml--&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">init-param</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springMVC<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="二、配置springmvc-xml"><a href="#二、配置springmvc-xml" class="headerlink" title="二、配置springmvc.xml"></a>二、配置springmvc.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--视图解析器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans:bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span> /&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">beans:property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span> /&gt;</span>  <span class="comment">&lt;!--forward到对应的jsp--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans:bean</span>&gt;</span>  </span><br><span class="line"> </span><br><span class="line"><span class="comment">&lt;!--扫描包--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.xxxx"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="SpringMVC-REST"><a href="#SpringMVC-REST" class="headerlink" title="SpringMVC REST"></a>SpringMVC REST</h2><p><code>HiddenHttpMethodFilter</code>可以将post请求转为put请求和Delete请求。</p>
+<h3 id="配置Filter"><a href="#配置Filter" class="headerlink" title="配置Filter"></a>配置Filter</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span>    </span><br><span class="line">	<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span>    </span><br><span class="line">  	<span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span>    </span><br><span class="line">  	<span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>HiddenHttpMethodFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span>    </span><br><span class="line">  	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Delete和Put请求"><a href="#Delete和Put请求" class="headerlink" title="Delete和Put请求"></a>Delete和Put请求</h3><p>表单增加隐藏域<code>_method</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"_method"</span> <span class="attr">value</span>=<span class="string">"DELETE"</span>/&gt;</span> <span class="comment">&lt;!--或value=PUT--&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Spring注解"><a href="#Spring注解" class="headerlink" title="Spring注解"></a>Spring注解</h2><ul>
+<li>PathVariable : 从url中{id}获取参数</li>
+<li>RequestParam : 绑定请求参数@RequestParam(“id”) int id;  可设置 required defaultValue</li>
+<li>RequestHeader</li>
+<li>CookieValue</li>
+</ul>
+<ul>
+<li>ModelAndView<blockquote>
+<p>ModelAndView源代码中是把其中Attribute一个一个放到request中去，所以我们可以在jsp页面访问</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>controller上map参数会自动加入到ModelAndView中  </p>
+</blockquote>
+<ul>
+<li>SessionAttributes</li>
+</ul>
+<blockquote>
+<p>在控制器类上添加，将Request中指定的（可以根据<code>属性名</code>或<code>属性类型</code>）属性加入到Session中</p>
+</blockquote>
+<ul>
+<li>ModelAttribute</li>
+</ul>
+<blockquote>
+<p>在Controller的一个方法上，在执行此Controller每个方法前调用，可以往Map里放初始值（map键值需要和目标方法入参类名第一个字母小写一致）</p>
+</blockquote>
+<h2 id="POJO绑定流程"><a href="#POJO绑定流程" class="headerlink" title="POJO绑定流程"></a>POJO绑定流程</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-7/19566832.jpg" alt=""></p>
+<h2 id="配置直接转发页面"><a href="#配置直接转发页面" class="headerlink" title="配置直接转发页面"></a>配置直接转发页面</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:view-controller</span> <span class="attr">path</span>=<span class="string">"/success"</span> <span class="attr">view-name</span>=<span class="string">"success"</span>/&gt;</span> <span class="comment">&lt;!--直接转发到success.jsp--&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置上述配置后，经过handler处理的请求404，需要再配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span>&gt;</span><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="自定义视图"><a href="#自定义视图" class="headerlink" title="自定义视图"></a>自定义视图</h2><h3 id="一、实现自定义view，集成view接口"><a href="#一、实现自定义view，集成view接口" class="headerlink" title="一、实现自定义view，集成view接口"></a>一、实现自定义view，集成view接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloView</span> <span class="keyword">implements</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getContentType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"text/html"</span>;<span class="comment">//返回内容类型</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">render</span><span class="params">(Map&lt;String, ?&gt; map, javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//渲染视图</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二、配置视图解析器"><a href="#二、配置视图解析器" class="headerlink" title="二、配置视图解析器"></a>二、配置视图解析器</h3><p>配置BeanNameViewResolver，使用视图的名字解析视图</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.BeanNameViewResolver"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"order"</span> <span class="attr">value</span>=<span class="string">"100"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="自定义类型转换器"><a href="#自定义类型转换器" class="headerlink" title="自定义类型转换器"></a>自定义类型转换器</h2><h3 id="一、继承Converter"><a href="#一、继承Converter" class="headerlink" title="一、继承Converter"></a>一、继承Converter</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestConverter</span> <span class="keyword">implements</span> <span class="title">Converter</span>&lt;<span class="title">String</span>, <span class="title">Target</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Target <span class="title">convert</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Traget();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二、配置ConversionService"><a href="#二、配置ConversionService" class="headerlink" title="二、配置ConversionService"></a>二、配置ConversionService</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--配置ConversionServiceFactoryBean--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"conversionService"</span> <span class="attr">class</span>=<span class="string">"org.springframework.context.support.ConversionServiceFactoryBean"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"converters"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"testConverter"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--注入进去--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mvc:annotation-driven</span> <span class="attr">conversion-service</span>=<span class="string">"conversionService"</span>&gt;</span><span class="tag">&lt;/<span class="name">mvc:annotation-driven</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="annotation-driven"><a href="#annotation-driven" class="headerlink" title="annotation-driven"></a>annotation-driven</h2><p>三个坑要使用<code>&lt;mvc:annotation-driven&gt;</code> </p>
+<p>一、 使用<code>&lt;mvc:view-controller&gt;</code> 后正常handler不能映射，404</p>
+<p>二、为处理静态资源问题，配置<code>&lt;mvc:default-servlet-handler/&gt;</code> 后handler不能映射</p>
+<blockquote>
+<p>配置<mvc:default-servlet-handler> 后，handlerAdapters中没有<code>AnnotationMethodHandlerAdapter</code>（已过期）</mvc:default-servlet-handler></p>
+<p>添加annotation-driven后增加了RequestMappingHandlerAdapter，所以@RequestMapping又起作用了。</p>
+</blockquote>
+<p>三、配置ConversionService</p>
+<h3 id="annotation-driven作用"><a href="#annotation-driven作用" class="headerlink" title="annotation-driven作用"></a>annotation-driven作用</h3><p>自动注册三个bean</p>
+<ul>
+<li>RequestMappingHandlerMapping</li>
+<li>RequestMappingHandlerAdapter</li>
+<li>ExceptionHandlerExceptionResolver</li>
+</ul>
+<p>提供以下支持</p>
+<ul>
+<li>ConversionService</li>
+<li>@NumberFormatannotation @DateTimeFormat 数据格式化（或string接收再转换）</li>
+<li>@Valid javaBean验证（也可以配置LocalValidatorFactoryBean 支持JSR303）</li>
+<li>@RequestBody和@ResponseBody</li>
+</ul>
+<h2 id="initBinder"><a href="#initBinder" class="headerlink" title="@initBinder"></a>@initBinder</h2><p>初始化WebDataBinder（权限id和集合映射）</p>
+<h2 id="HttpMessageConverter"><a href="#HttpMessageConverter" class="headerlink" title="HttpMessageConverter"></a>HttpMessageConverter</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-7/35838270.jpg" alt=""></p>
+<p>加入Jackson包后，messageConverters自动加载MappingJackson2HttpMessageConverter</p>
+<p>@RequestBody@ResponseBody（或者使用HttpEntity<t> ResponseEntity<t>作为入参或返回类型） 会根据参数类型选择对应的MessageConverter</t></t></p>
+<h2 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h2><p>配置MultipartResolver的一个实现类，<code>CommonsMultipartResovler</code></p>
+<p>控制器方法中使用MultipartFile接收参数</p>
+<h2 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h2><h3 id="拦截器配置"><a href="#拦截器配置" class="headerlink" title="拦截器配置"></a>拦截器配置</h3><p>一、实现<code>HandlerInterceptor</code>接口</p>
+<p>二、springmvc.xml中的<code>&lt;mvc:interceptors&gt;</code>中配置拦截器bean</p>
+<h3 id="拦截器原理"><a href="#拦截器原理" class="headerlink" title="拦截器原理"></a>拦截器原理</h3><p>在DispatcherServlet中的doDispatch()方法中 进行拦截</p>
+<ul>
+<li>prehandle</li>
+<li>postHandle: 目标方法之后，渲染视图方法之前调用</li>
+<li>afterCompletion: 渲染视图之后调用</li>
+</ul>
+<h3 id="多拦截器顺序"><a href="#多拦截器顺序" class="headerlink" title="多拦截器顺序"></a>多拦截器顺序</h3><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-8/97156614.jpg" alt=""></p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>通过HandlerExceptionResolver处理异常</p>
+<p>配置了<mvc:annotation-driven>就配置了ExceptionHandlerExceptionResolver</mvc:annotation-driven></p>
+<h3 id="ExceptionHandlerExceptionResolver"><a href="#ExceptionHandlerExceptionResolver" class="headerlink" title="ExceptionHandlerExceptionResolver"></a>ExceptionHandlerExceptionResolver</h3><p>在controller中新建处理异常的方法使用@ExceptionHandler标注</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ExceptionHandler</span>(&#123;Exception.class&#125;)<span class="comment">//定义截获的exception类</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ModelAndView <span class="title">exHandler</span><span class="params">(Exception ex)</span> </span>&#123;<span class="comment">//可返回modelandview展示</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"error"</span>).addObject(<span class="string">"ex"</span>,ex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上只能截获当前controller中的异常</p>
+<p>通过定义@ControllerAdvice标记的类中定义@ExceptionHandler可以全局截获</p>
+<h3 id="ResponseStatusExceptionResolver"><a href="#ResponseStatusExceptionResolver" class="headerlink" title="ResponseStatusExceptionResolver"></a>ResponseStatusExceptionResolver</h3><p>可以标注在自定义exception上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseStatus</span>(value = HttpStatus.BAD_REQUEST,reason = <span class="string">"自定义"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyException</span> <span class="keyword">extends</span> <span class="title">Exception</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在抛出此异常时会携带自定义信息。</p>
+<h3 id="DefaultHandlerExceptionResolver"><a href="#DefaultHandlerExceptionResolver" class="headerlink" title="DefaultHandlerExceptionResolver"></a>DefaultHandlerExceptionResolver</h3><p>默认的对spring的异常处理。</p>
+<h2 id="SpringMVC运行流程"><a href="#SpringMVC运行流程" class="headerlink" title="SpringMVC运行流程"></a>SpringMVC运行流程</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-8/5769044.jpg" alt=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="http://gloveangels.com/spring-mvc-access-static-resources-jpgjscss/" target="_blank" rel="external">SPRING-MVC 访问静态文件, 如 jpg/js/css（三种处理静态资源的方式）</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/madun/article/details/8988860" target="_blank" rel="external">Spring ContextLoaderListener与DispatcherServlet所加载的applicationContext的区别</a></p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringMVC/" rel="tag">#SpringMVC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/06/spring事务管理/" rel="next" title="Spring事务管理">
+                <i class="fa fa-chevron-left"></i> Spring事务管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/09/SpringMVC学习笔记/"
+           data-title="SpringMVC学习笔记" data-url="http://4rnold.github.io/2016/07/09/SpringMVC学习笔记/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="4rnold" />
+          <p class="site-author-name" itemprop="name">4rnold</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#springmvc-helloworld"><span class="nav-number">1.</span> <span class="nav-text">springmvc helloworld</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、DispathchServlet-配置"><span class="nav-number">1.1.</span> <span class="nav-text">一、DispathchServlet 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、配置springmvc-xml"><span class="nav-number">1.2.</span> <span class="nav-text">二、配置springmvc.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringMVC-REST"><span class="nav-number">2.</span> <span class="nav-text">SpringMVC REST</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置Filter"><span class="nav-number">2.1.</span> <span class="nav-text">配置Filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete和Put请求"><span class="nav-number">2.2.</span> <span class="nav-text">Delete和Put请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring注解"><span class="nav-number">3.</span> <span class="nav-text">Spring注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POJO绑定流程"><span class="nav-number">4.</span> <span class="nav-text">POJO绑定流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置直接转发页面"><span class="nav-number">5.</span> <span class="nav-text">配置直接转发页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义视图"><span class="nav-number">6.</span> <span class="nav-text">自定义视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、实现自定义view，集成view接口"><span class="nav-number">6.1.</span> <span class="nav-text">一、实现自定义view，集成view接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、配置视图解析器"><span class="nav-number">6.2.</span> <span class="nav-text">二、配置视图解析器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类型转换器"><span class="nav-number">7.</span> <span class="nav-text">自定义类型转换器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、继承Converter"><span class="nav-number">7.1.</span> <span class="nav-text">一、继承Converter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、配置ConversionService"><span class="nav-number">7.2.</span> <span class="nav-text">二、配置ConversionService</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#annotation-driven"><span class="nav-number">8.</span> <span class="nav-text">annotation-driven</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#annotation-driven作用"><span class="nav-number">8.1.</span> <span class="nav-text">annotation-driven作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#initBinder"><span class="nav-number">9.</span> <span class="nav-text">@initBinder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HttpMessageConverter"><span class="nav-number">10.</span> <span class="nav-text">HttpMessageConverter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上传"><span class="nav-number">11.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截器"><span class="nav-number">12.</span> <span class="nav-text">拦截器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器配置"><span class="nav-number">12.1.</span> <span class="nav-text">拦截器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器原理"><span class="nav-number">12.2.</span> <span class="nav-text">拦截器原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多拦截器顺序"><span class="nav-number">12.3.</span> <span class="nav-text">多拦截器顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">13.</span> <span class="nav-text">异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ExceptionHandlerExceptionResolver"><span class="nav-number">13.1.</span> <span class="nav-text">ExceptionHandlerExceptionResolver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResponseStatusExceptionResolver"><span class="nav-number">13.2.</span> <span class="nav-text">ResponseStatusExceptionResolver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DefaultHandlerExceptionResolver"><span class="nav-number">13.3.</span> <span class="nav-text">DefaultHandlerExceptionResolver</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringMVC运行流程"><span class="nav-number">14.</span> <span class="nav-text">SpringMVC运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">15.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">4rnold</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"4rnold"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
