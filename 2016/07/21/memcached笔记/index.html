@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="memcached," />
 
 
 
@@ -84,15 +84,20 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="4rnold's notebook">
-<meta property="og:url" content="http://4rnold.github.io/tags/servlet/index.html">
+<meta name="description" content="内存分配机制为了克服内存碎片化，引入 slab chunk的内存机制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="memcached笔记">
+<meta property="og:url" content="http://4rnold.github.io/2016/07/21/memcached笔记/index.html">
 <meta property="og:site_name" content="4rnold's notebook">
-<meta property="og:description">
+<meta property="og:description" content="内存分配机制为了克服内存碎片化，引入 slab chunk的内存机制">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-36-41.png">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-42-57.png">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-59-26.png">
+<meta property="og:updated_time" content="2016-07-21T10:25:12.152Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4rnold's notebook">
-<meta name="twitter:description">
+<meta name="twitter:title" content="memcached笔记">
+<meta name="twitter:description" content="内存分配机制为了克服内存碎片化，引入 slab chunk的内存机制">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-36-41.png">
 
 
 
@@ -113,9 +118,9 @@
 
 
 
-  <link rel="canonical" href="http://4rnold.github.io/tags/servlet/"/>
+  <link rel="canonical" href="http://4rnold.github.io/2016/07/21/memcached笔记/"/>
 
-  <title> 标签: servlet | 4rnold's notebook </title>
+  <title> memcached笔记 | 4rnold's notebook </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +151,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,74 +262,178 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        servlet
-        <small>标签</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/01/JavaWeb开发(2)——cookie and session and EL and filter/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(2)——cookie&session&EL&filter</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-01T10:58:33+08:00"
-              content="2016-07-01" >
-          07-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/30/JavaWeb开发(1)——Servlet and JSP/" itemprop="url">
-              
-                <span itemprop="name">JavaWeb开发(1)——Servlet&JSP</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-30T09:21:46+08:00"
-              content="2016-06-30" >
-          06-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </div>
 
   
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                memcached笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T18:25:44+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/21/memcached笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/memcached笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="内存分配机制"><a href="#内存分配机制" class="headerlink" title="内存分配机制"></a>内存分配机制</h1><p>为了克服内存碎片化，引入 slab chunk的内存机制<br><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-36-41.png" alt=""> </p>
+<a id="more"></a>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-42-57.png" alt=""> </p>
+<p>显示 chunk的大小和每个slab中chunk的数量<br>可以调整增长因子来调整chunk增加的大小。<br>如果有一个100k的内容会分配到122kchunk中，但122k chunk满了，不会去找更大的，而是把122中不常用的踢掉。使用LRU算法</p>
+<h1 id="过期和删除机制"><a href="#过期和删除机制" class="headerlink" title="过期和删除机制"></a>过期和删除机制</h1><ul>
+<li>过期后只是失效<br><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-59-26.png" alt=""> </li>
+<li>取值的时候才判断是否过期，过期了才会影响curr_items的值</li>
+</ul>
+<p>节省了cpu资源</p>
+<p>删除使用LRU算法删除最近未使用的</p>
+<p><strong>key value长度限制</strong> ： key最大250字节，value 1m</p>
+<p>#一致性哈希</p>
+<p>解决的问题：当集群机器数量变化时，计算的key不变。</p>
+<blockquote>
+<p>服务器由n台变为n-1台后，原来的没n<em>(n-1)个key，现在还有n个key命中。命中率为n/n</em>(n-1)= 1/n-1 !</p>
+</blockquote>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
+<li><p>大访问量的网站，网站刚上线时，短时间内缓存就满了，导致缓存到期时间一样，所以就周期性的出现 缓存集体失效。导致数据库周期性压力。</p>
+</li>
+<li><p>当多个memcached服务器，相同业务的key应具有相同的前缀，尽量使他们放在同一台机器上，减少服务器的链接，提高程序性能。</p>
+</li>
+<li><p>永久数据被删除现象</p>
+</li>
+</ul>
+<blockquote>
+<p>UC在2011年以前采用得较多的V1.3.0以及V1.2.5、V1.2.6，这些版本在配置的内存总量用完后，不检查队列尾的（较少访问的）数据是否有过期的，直接踢出队列尾部第一条数据，用来存放新数据。所以老版本的LRU机制是粗放，不够合理的。</p>
+<p>而从V1.4.4开始（更早些的V1.4.*版本没确认），会先检查队列尾部（较少访问的）50条数据，淘汰掉过期数据，如果全都没过期，才会踢出队列尾部第一条数据。</p>
+</blockquote>
+<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h1><ul>
+<li><a href="http://www.cnblogs.com/suredandan/archive/2013/07/21/3204159.html" target="_blank" rel="external">memcached的最佳实践方案</a></li>
+<li><a href="http://tech.uc.cn/?p=323" target="_blank" rel="external">讲几个Memcached旧版本几个故事，你就明白怎么用了</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/memcached/" rel="tag">#memcached</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/21/java并发编程/" rel="next" title="java并发编程">
+                <i class="fa fa-chevron-left"></i> java并发编程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -332,6 +441,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/21/memcached笔记/"
+           data-title="memcached笔记" data-url="http://4rnold.github.io/2016/07/21/memcached笔记/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -351,8 +468,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -402,6 +528,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#内存分配机制"><span class="nav-number">1.</span> <span class="nav-text">内存分配机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过期和删除机制"><span class="nav-number">2.</span> <span class="nav-text">过期和删除机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用"><span class="nav-number">4.</span> <span class="nav-text">引用</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -498,6 +635,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
