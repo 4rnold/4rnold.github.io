@@ -110,8 +110,9 @@
 连接
 验证：类的正确性（确实是个java的类不是C++ 的）
 准备：为静态变量分配空间并初始化默认值（还没有赋值，先赋为默认">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png">
 <meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-4/24473210.jpg">
-<meta property="og:updated_time" content="2016-07-04T14:07:00.555Z">
+<meta property="og:updated_time" content="2016-07-23T13:15:26.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM的类加载机制">
 <meta name="twitter:description" content="类的加载、链接和初始化
@@ -125,7 +126,7 @@
 连接
 验证：类的正确性（确实是个java的类不是C++ 的）
 准备：为静态变量分配空间并初始化默认值（还没有赋值，先赋为默认">
-<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-4/24473210.jpg">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png">
 
 
 
@@ -387,11 +388,11 @@
 <ul>
 <li>连接<ul>
 <li>验证：类的正确性（确实是个java的类不是C++ 的）</li>
-<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（还没有赋值，先赋为默认值）</li>
+<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（<strong>还没有赋值，先赋为默认值</strong>），如果是static final 则在准备阶段就会被赋值。</li>
 <li>解析：把类中<code>符号引用</code>转为<code>直接引用</code> （指针指向真正要执行方法的内存地址）</li>
 </ul>
 </li>
-<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。</li>
+<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。staic{} 执行。</li>
 </ul>
 <a id="more"></a>
 <p>在六种对类的第一次<code>主动使用</code>时才会去初始化。</p>
@@ -414,12 +415,12 @@
 <p>​    从java.ext.dirs系统属性指定目录加载类库，或从JDK安装魔力jre/lib/ext目录加载</p>
 </li>
 <li><p>系统类加载器（System）</p>
-<p>从环境变量classpath或java.class.path指定的目录中加载</p>
+<p>  从环境变量classpath或java.class.path指定的目录中加载</p>
+</li>
+<li><p>用户自定义加载器（classloader的子类）</p>
 </li>
 </ul>
-<ul>
-<li>用户自定义加载器（classloader的子类）</li>
-</ul>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png" alt=""> </p>
 <p>加载类的加载器是<code>定义类加载器</code>，其子类加载器是<code>初始类加载器</code></p>
 <p><strong>父加载器加载的类不能看见子加载器加载的类。</strong></p>
 <p>例：</p>
@@ -545,7 +546,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

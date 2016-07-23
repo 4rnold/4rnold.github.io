@@ -4,6 +4,99 @@
   
     
     <entry>
+      <title><![CDATA[JVM笔记]]></title>
+      <url>http://4rnold.github.io/2016/07/23/JVM%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h1 id="JVM-启动流程"><a href="#JVM-启动流程" class="headerlink" title="JVM 启动流程"></a>JVM 启动流程</h1><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-09-32-45.png" alt=""> </p>
+<a id="more"></a>
+<h1 id="JVM基本结构"><a href="#JVM基本结构" class="headerlink" title="JVM基本结构"></a>JVM基本结构</h1><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-09-33-44.png" alt=""></p>
+<h2 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h2><ul>
+<li>每个线程有一个pc寄存器</li>
+<li>指向下一条地址</li>
+</ul>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><ul>
+<li>保存类的源信息<ul>
+<li>类字节码</li>
+<li>常量</li>
+</ul>
+</li>
+</ul>
+<h2 id="JAVA堆"><a href="#JAVA堆" class="headerlink" title="JAVA堆"></a>JAVA堆</h2><ul>
+<li>对象都放在堆区</li>
+<li>所有线程共享堆（大小共享，内容不共享吧）</li>
+<li>GC主要工作区域</li>
+</ul>
+<h2 id="JAVA栈"><a href="#JAVA栈" class="headerlink" title="JAVA栈"></a>JAVA栈</h2><ul>
+<li>线程私有</li>
+<li>由一系列帧组成</li>
+<li>帧保存局部变量，操作数栈，常量池指针</li>
+</ul>
+<blockquote>
+<p>当static方法调用时参数入栈，非static方法调用首先将<strong>this引用入栈</strong> 再将各参数入栈</p>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-09-45-39.png" alt=""> </p>
+</blockquote>
+<ul>
+<li>操作数栈</li>
+</ul>
+<h1 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h1><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-21-43-09.png" alt=""> </p>
+<p>每个线程会有自己的本地内存，来存放变量副本。</p>
+<blockquote>
+<p><em>如果线程A修改了变量的值，那线程B如何才能及时读取到呢？</em></p>
+<p>答：使用volatile标示变量。</p>
+</blockquote>
+<h1 id="GC算法"><a href="#GC算法" class="headerlink" title="GC算法"></a>GC算法</h1><h2 id="引用计算法"><a href="#引用计算法" class="headerlink" title="引用计算法"></a>引用计算法</h2><p>记录对象引用数量，根对象引用不可达就回收。</p>
+<p>缺点：1、性能低；2、不能解决循环引用的问题。</p>
+<h2 id="标记-清除法"><a href="#标记-清除法" class="headerlink" title="标记-清除法"></a>标记-清除法</h2><p>标记阶段：根节点搜索可达则标记</p>
+<p>清除：未标记的就清除 </p>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-23-56-48.png" alt=""></p>
+<h2 id="标记-压缩法"><a href="#标记-压缩法" class="headerlink" title="标记-压缩法"></a>标记-压缩法</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-23-58-05.png" alt=""></p>
+<p>相对于</p>
+<h2 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h2><p>两块内存空间，浪费空间</p>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-22-23-59-42.png" alt=""> </p>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-00-03-37.png" alt=""> </p>
+<p>大对象直接放入老年代存货很久的放入老年代。</p>
+<blockquote>
+<p>少量对象存活，适合复制算法</p>
+<p>大量对象存活，适合标记清理或标记压缩。</p>
+</blockquote>
+<h2 id="根"><a href="#根" class="headerlink" title="根"></a>根</h2><ul>
+<li>栈中引用的对象</li>
+<li>方法区中静态成员或常量引用（全局对象）</li>
+<li>JNI方法栈中引用对象</li>
+</ul>
+<h1 id="GC参数"><a href="#GC参数" class="headerlink" title="GC参数"></a>GC参数</h1><h2 id="串行收集器"><a href="#串行收集器" class="headerlink" title="串行收集器"></a>串行收集器</h2><p>-xx:+UseSerialGC</p>
+<ul>
+<li>新生代、老年代使用串行回收</li>
+<li>新生代：复制算法</li>
+<li>老年代：标记-压缩</li>
+</ul>
+<h2 id="并行收集器"><a href="#并行收集器" class="headerlink" title="并行收集器"></a>并行收集器</h2><p>-xx:+UseParNewGC</p>
+<ul>
+<li>新生代：并行</li>
+<li>老年代：串行</li>
+</ul>
+<h2 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-00-53-59.png" alt=""> </p>
+<h1 id="类装载器"><a href="#类装载器" class="headerlink" title="类装载器"></a>类装载器</h1><p>见：<a href="http://4rnold.github.io/2016/07/04/JVM%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">http://4rnold.github.io/2016/07/04/JVM%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/</a></p>
+<h1 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h1><h2 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h2><p>竞争不激烈，提升性能。</p>
+<h2 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h2><p>BasicObjectLock</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><h2 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h2><ul>
+<li>减小锁持有时间</li>
+<li>减小锁粒度</li>
+</ul>
+<p>使用concurrentHashMap，将map分为多个segment，锁的时候只锁一个segment</p>
+<ul>
+<li><p>锁分离，读写锁分离</p>
+<p>LinkedBlockQueue,分离take put锁</p>
+</li>
+</ul>
+<ul>
+<li><p>锁粗化</p>
+<p>合并同一方法中的锁。</p>
+</li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[memcached笔记]]></title>
       <url>http://4rnold.github.io/2016/07/21/memcached%E7%AC%94%E8%AE%B0/</url>
       <content type="html"><![CDATA[<h1 id="内存分配机制"><a href="#内存分配机制" class="headerlink" title="内存分配机制"></a>内存分配机制</h1><p>为了克服内存碎片化，引入 slab chunk的内存机制<br><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-21-15-36-41.png" alt=""> </p>
@@ -308,11 +401,11 @@
 <ul>
 <li>连接<ul>
 <li>验证：类的正确性（确实是个java的类不是C++ 的）</li>
-<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（还没有赋值，先赋为默认值）</li>
+<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（<strong>还没有赋值，先赋为默认值</strong>），如果是static final 则在准备阶段就会被赋值。</li>
 <li>解析：把类中<code>符号引用</code>转为<code>直接引用</code> （指针指向真正要执行方法的内存地址）</li>
 </ul>
 </li>
-<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。</li>
+<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。staic{} 执行。</li>
 </ul>
 <a id="more"></a>
 <p>在六种对类的第一次<code>主动使用</code>时才会去初始化。</p>
@@ -335,12 +428,12 @@
 <p>​    从java.ext.dirs系统属性指定目录加载类库，或从JDK安装魔力jre/lib/ext目录加载</p>
 </li>
 <li><p>系统类加载器（System）</p>
-<p>从环境变量classpath或java.class.path指定的目录中加载</p>
+<p>  从环境变量classpath或java.class.path指定的目录中加载</p>
+</li>
+<li><p>用户自定义加载器（classloader的子类）</p>
 </li>
 </ul>
-<ul>
-<li>用户自定义加载器（classloader的子类）</li>
-</ul>
+<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png" alt=""> </p>
 <p>加载类的加载器是<code>定义类加载器</code>，其子类加载器是<code>初始类加载器</code></p>
 <p><strong>父加载器加载的类不能看见子加载器加载的类。</strong></p>
 <p>例：</p>
