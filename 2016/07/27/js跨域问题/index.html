@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JVM,ClassLoader," />
+  <meta name="keywords" content="jsonp,跨域," />
 
 
 
@@ -84,49 +84,21 @@
 
 
 
-<meta name="description" content="类的加载、链接和初始化
-加载：查找并加载二进制数据
-
-.class文件中的二进制数据读入到内存。放在运行时数据区的方法区 内，然后再堆 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。
-
-
-
-
-连接
-验证：类的正确性（确实是个java的类不是C++ 的）
-准备：为静态变量分配空间并初始化默认值（还没有赋值，先赋为默认">
+<meta name="description" content="jsonp跨域 
+通过远程调用js方法将json数据放在callback()方法中返回。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM的类加载机制">
-<meta property="og:url" content="http://4rnold.github.io/2016/07/04/JVM的类加载机制/index.html">
+<meta property="og:title" content="js跨域问题">
+<meta property="og:url" content="http://4rnold.github.io/2016/07/27/js跨域问题/index.html">
 <meta property="og:site_name" content="4rnold's notebook">
-<meta property="og:description" content="类的加载、链接和初始化
-加载：查找并加载二进制数据
-
-.class文件中的二进制数据读入到内存。放在运行时数据区的方法区 内，然后再堆 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。
-
-
-
-
-连接
-验证：类的正确性（确实是个java的类不是C++ 的）
-准备：为静态变量分配空间并初始化默认值（还没有赋值，先赋为默认">
-<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png">
-<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/16-7-4/24473210.jpg">
-<meta property="og:updated_time" content="2016-07-23T13:15:26.117Z">
+<meta property="og:description" content="jsonp跨域 
+通过远程调用js方法将json数据放在callback()方法中返回。">
+<meta property="og:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-27-10-07-44.png">
+<meta property="og:updated_time" content="2016-07-27T02:22:40.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JVM的类加载机制">
-<meta name="twitter:description" content="类的加载、链接和初始化
-加载：查找并加载二进制数据
-
-.class文件中的二进制数据读入到内存。放在运行时数据区的方法区 内，然后再堆 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。
-
-
-
-
-连接
-验证：类的正确性（确实是个java的类不是C++ 的）
-准备：为静态变量分配空间并初始化默认值（还没有赋值，先赋为默认">
-<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png">
+<meta name="twitter:title" content="js跨域问题">
+<meta name="twitter:description" content="jsonp跨域 
+通过远程调用js方法将json数据放在callback()方法中返回。">
+<meta name="twitter:image" content="http://o8n1hrt12.bkt.clouddn.com/2016-07-27-10-07-44.png">
 
 
 
@@ -147,9 +119,9 @@
 
 
 
-  <link rel="canonical" href="http://4rnold.github.io/2016/07/04/JVM的类加载机制/"/>
+  <link rel="canonical" href="http://4rnold.github.io/2016/07/27/js跨域问题/"/>
 
-  <title> JVM的类加载机制 | 4rnold's notebook </title>
+  <title> js跨域问题 | 4rnold's notebook </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -312,7 +284,7 @@
             
             
               
-                JVM的类加载机制
+                js跨域问题
               
             
           </h1>
@@ -324,8 +296,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-04T21:56:44+08:00" content="2016-07-04">
-              2016-07-04
+            <time itemprop="dateCreated" datetime="2016-07-27T10:21:44+08:00" content="2016-07-27">
+              2016-07-27
             </time>
           </span>
 
@@ -354,8 +326,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/04/JVM的类加载机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/04/JVM的类加载机制/" itemprop="commentsCount"></span>
+                <a href="/2016/07/27/js跨域问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/27/js跨域问题/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -378,60 +350,21 @@
       
 
       
-        <h1 id="类的加载、链接和初始化"><a href="#类的加载、链接和初始化" class="headerlink" title="类的加载、链接和初始化"></a>类的加载、链接和初始化</h1><ul>
-<li><p>加载：查找并加载二进制数据</p>
-<blockquote>
-<p>.class文件中的二进制数据读入到内存。放在<code>运行时数据区的方法区</code> 内，然后再<code>堆</code> 区创建一个java.lang.Class对象，封装类的数据结构，通过各个类在堆区的class对象就能实现对类的操作（反射什么的）。</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>连接<ul>
-<li>验证：类的正确性（确实是个java的类不是C++ 的）</li>
-<li>准备：为<code>静态变量</code>分配空间并初始化<code>默认值</code>（<strong>还没有赋值，先赋为默认值</strong>），如果是static final 则在准备阶段就会被赋值。</li>
-<li>解析：把类中<code>符号引用</code>转为<code>直接引用</code> （指针指向真正要执行方法的内存地址）</li>
-</ul>
-</li>
-<li>初始化：静态变量赋<code>初始值</code> （前面是默认值）。staic{} 执行。</li>
-</ul>
+        <h1 id="jsonp跨域"><a href="#jsonp跨域" class="headerlink" title="jsonp跨域"></a>jsonp跨域</h1><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-27-10-07-44.png" alt=""> </p>
+<p>通过远程调用js方法将json数据放在callback()方法中返回。</p>
 <a id="more"></a>
-<p>在六种对类的第一次<code>主动使用</code>时才会去初始化。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class Test&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> x = <span class="number">6</span>/<span class="number">2</span>;</span><br><span class="line">  <span class="keyword">static</span> &#123;</span><br><span class="line">    <span class="comment">//访问Test.x不运行，</span></span><br><span class="line">    <span class="comment">//如果x = new Random().nextInt(10)则运行此方法。</span></span><br><span class="line">    <span class="comment">//如果x不是final 则运行此方法。</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ClassLoader.loadClass() 加载类不是对类的主动使用（仅仅加载不会调用初始化方法）</p>
-<blockquote>
-<p>TIPS : 加载匿名内部类可以使用诸如<code>“java.net.URLClassLoader$3$1”</code>表明URLClassLoader中第3个匿名内部类中的第一个匿名内部类</p>
-</blockquote>
-<h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><ul>
-<li><p>java自带加载器</p>
-<ul>
-<li><p>根加载器（Bootstrap）所加载类的.getClassLoader()得到null</p>
-<p>根加载器实现依赖底层操作系统。</p>
-</li>
-</ul>
-</li>
+<p>springmvc controller端</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/get"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">get</span><span class="params">(HttpServletRequest req,HttpServletResponse res)</span> </span>&#123;</span><br><span class="line">  res.setContentType(<span class="string">"text/plain"</span>);</span><br><span class="line">  String callbackFunName =req.getParameter(<span class="string">"callbackparam"</span>);<span class="comment">//得到js函数名称</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    res.getWriter().write(callbackFunName + <span class="string">"([ &#123; name:\"John\"&#125;])"</span>); <span class="comment">//返回jsonp数据</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/getJsonp"</span>)</span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> JSONPObject <span class="title">getJsonp</span><span class="params">(String callbackparam)</span></span>&#123;</span><br><span class="line">  Company company=<span class="keyword">new</span> Company();</span><br><span class="line">  company.setAddress(<span class="string">"广州天河华景软件园"</span>);</span><br><span class="line">  company.setEmail(<span class="string">"123456@qq.com"</span>);</span><br><span class="line">  company.setName(<span class="string">"广州讯动网络可以有限公司"</span>);</span><br><span class="line">  company .setPhone(<span class="string">"12345678912"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> JSONPObject(callbackparam, company); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ajax端</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://code.jquery.com/jquery-2.1.3.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">$("#but1").click(function()&#123;</span><br><span class="line">     $.ajax(&#123;</span><br><span class="line">		url:'http://127.0.0.1:8080/DevInfoWeb/get',</span><br><span class="line">		type: "get",</span><br><span class="line">		async: false,</span><br><span class="line">		dataType: "jsonp",</span><br><span class="line">		jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数 </span><br><span class="line">		jsonpCallback: "success_jsonpCallback", //callback的function名称,服务端会把名称和data一起传递回来 </span><br><span class="line">		success: function(json) &#123;</span><br><span class="line">		 alert(json);</span><br><span class="line">		&#125;,</span><br><span class="line">		error: function()&#123;alert('Error');&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$("#but2").click(function()&#123;</span><br><span class="line">     $.ajax(&#123;</span><br><span class="line">		url:'http://127.0.0.1:8080/DevInfoWeb/getJsonp',</span><br><span class="line">		type: "get",</span><br><span class="line">		async: false,</span><br><span class="line">		dataType: "jsonp",</span><br><span class="line">		jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数 </span><br><span class="line">		jsonpCallback: "success_jsonpCallback", //callback的function名称,服务端会把名称和data一起传递回来 </span><br><span class="line">		success: function(json) &#123;</span><br><span class="line">		 alert(json);</span><br><span class="line">		&#125;,</span><br><span class="line">		error: function()&#123;alert('Error');&#125;</span><br><span class="line">&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span>&gt;</span><span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 jQuery AJAX 来改变文本<span class="tag">&lt;/<span class="name">h2</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"but1"</span>&gt;</span>按钮1<span class="tag">&lt;/<span class="name">button</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"but2"</span>&gt;</span>按钮2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="启用-CORS-解决跨域"><a href="#启用-CORS-解决跨域" class="headerlink" title="启用 CORS 解决跨域"></a>启用 CORS 解决跨域</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>​    服务器端直接设置header内容<br><strong>Access-Control-Allow-Origin：*</strong><br>​    或者<br><strong>Access-Control-Allow-Origin：</strong>htt@p://<a href="http://api.zhihu.com" target="_blank" rel="external">http://api.zhihu.com</a><br>​    这样就可以直接请求到任何网站或者htt@p://<a href="http://api.zhihu.com" target="_blank" rel="external">http://api.zhihu.com</a><br>php程序这样写：<br>​    header(‘Access-Control-Allow-Origin：*’);<br>或者<br>​    header(‘Access-Control-Allow-Origin：htt@p://api.zhihu.com’);<br>（注意去掉@，知乎编辑器不知道怎么不让带http的网址自动链接，先这样写了）</p>
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>​    在Nginx设置”头信息“直接添加<strong>Access-Control-Allow-Origin：*</strong>的信息。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://www.zhihu.com/question/19618769/answer/24819290?from=profile_answer_card" target="_blank" rel="external">如何解决 Ajax 跨域请求不到的问题？</a></li>
 </ul>
 <ul>
-<li><p>扩展类加载器（Extension）</p>
-<p>​    从java.ext.dirs系统属性指定目录加载类库，或从JDK安装魔力jre/lib/ext目录加载</p>
-</li>
-<li><p>系统类加载器（System）</p>
-<p>  从环境变量classpath或java.class.path指定的目录中加载</p>
-</li>
-<li><p>用户自定义加载器（classloader的子类）</p>
-</li>
+<li><a href="http://blog.csdn.net/caiwenfeng_for_23/article/details/45300739" target="_blank" rel="external">Ajax+Spring MVC实现跨域请求（JSONP）</a></li>
 </ul>
-<p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-23-14-43-37.png" alt=""> </p>
-<p>加载类的加载器是<code>定义类加载器</code>，其子类加载器是<code>初始类加载器</code></p>
-<p><strong>父加载器加载的类不能看见子加载器加载的类。</strong></p>
-<p>例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class clazz = loadder1.loadClass(<span class="string">"Sample.class"</span>);</span><br><span class="line">        Object object = clazz.newInstance();</span><br><span class="line">        Sample sample = (Sample)object;<span class="comment">//报错</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上例中Client由System加载，Sample类由自定义类加载器（Loader1）加载，所以main中无法访问sample。可以使用<code>反射</code>方法来突破这种限制。如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Class clazz = loadder1.loadClass(<span class="string">"Sample.class"</span>);</span><br><span class="line">        Object object = clazz.newInstance();</span><br><span class="line">        Field field = clazz.getField(<span class="string">"v1"</span>);<span class="comment">//反射</span></span><br><span class="line">        <span class="keyword">int</span> v1 = field.getInt(object);</span><br><span class="line">        System.out.println(<span class="string">"v1:"</span> + v1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="类的卸载"><a href="#类的卸载" class="headerlink" title="类的卸载"></a>类的卸载</h2><p>当<code>自定义类加载器</code>加载的类的生命周期结束时，该类<code>方法区</code> 内的数据也会被<code>卸载</code>。</p>
-<p>而<code>系统类加载器</code>(三种) 加载的类始终不会被卸载。</p>
-<h2 id="引用变量与对象的引用关系"><a href="#引用变量与对象的引用关系" class="headerlink" title="引用变量与对象的引用关系"></a>引用变量与对象的引用关系</h2><p><img src="http://o8n1hrt12.bkt.clouddn.com/16-7-4/24473210.jpg" alt=""></p>
-<p>(图引自：<a href="http://www.cnblogs.com/mengdd/p/3594608.html" target="_blank" rel="external">http://www.cnblogs.com/mengdd/p/3594608.html</a>)</p>
-<p>卸载：Class对象被卸载，方法区类二进制数据被卸载（可以通过Class.hashCode()来判断）。（是否说明方法区内和Class对象是始终一一对应的？）</p>
 
       
     </div>
@@ -453,9 +386,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JVM/" rel="tag">#JVM</a>
+            <a href="/tags/jsonp/" rel="tag">#jsonp</a>
           
-            <a href="/tags/ClassLoader/" rel="tag">#ClassLoader</a>
+            <a href="/tags/跨域/" rel="tag">#跨域</a>
           
         </div>
       
@@ -464,17 +397,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/01/hexo博客文件名带符号导致localsearch失效问题/" rel="next" title="hexo博客文件名带&符号导致localsearch失效问题">
-                <i class="fa fa-chevron-left"></i> hexo博客文件名带&符号导致localsearch失效问题
+              <a href="/2016/07/23/JVM笔记/" rel="next" title="JVM笔记">
+                <i class="fa fa-chevron-left"></i> JVM笔记
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/06/JDK动态代理/" rel="prev" title="JDK动态代理">
-                JDK动态代理 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,8 +429,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/04/JVM的类加载机制/"
-           data-title="JVM的类加载机制" data-url="http://4rnold.github.io/2016/07/04/JVM的类加载机制/">
+      <div class="ds-thread" data-thread-key="2016/07/27/js跨域问题/"
+           data-title="js跨域问题" data-url="http://4rnold.github.io/2016/07/27/js跨域问题/">
       </div>
     
   </div>
@@ -592,7 +521,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类的加载、链接和初始化"><span class="nav-number">1.</span> <span class="nav-text">类的加载、链接和初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器"><span class="nav-number">1.1.</span> <span class="nav-text">类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的卸载"><span class="nav-number">1.2.</span> <span class="nav-text">类的卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用变量与对象的引用关系"><span class="nav-number">1.3.</span> <span class="nav-text">引用变量与对象的引用关系</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#jsonp跨域"><span class="nav-number">1.</span> <span class="nav-text">jsonp跨域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启用-CORS-解决跨域"><span class="nav-number">2.</span> <span class="nav-text">启用 CORS 解决跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法1"><span class="nav-number">2.1.</span> <span class="nav-text">方法1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法2"><span class="nav-number">2.2.</span> <span class="nav-text">方法2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
