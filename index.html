@@ -352,6 +352,9 @@
         
           <h1 id="jsonp跨域"><a href="#jsonp跨域" class="headerlink" title="jsonp跨域"></a>jsonp跨域</h1><p><img src="http://o8n1hrt12.bkt.clouddn.com/2016-07-27-10-07-44.png" alt=""> </p>
 <p>通过远程调用js方法将json数据放在callback()方法中返回。</p>
+<p>callbackparam 把方法名字（success_jsonpCallback）传给服务端。服务端将按照“success_jsonpCallback(data)”格式返回。</p>
+<p>jquery中又对jsonp做了封装 相当于</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">success_jsonpCallback</span>(<span class="params">data</span>)</span><br><span class="line"></span>&#123;</span><br><span class="line">    success(data);<span class="comment">//将返回data传给success处理，完成跨域。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/27/js跨域问题/#more" rel="contents">
               阅读全文 &raquo;
